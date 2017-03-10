@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<data>
+  <urg>
+    <urg_serial>4</urg_serial>
+    <urg_baud>1</urg_baud>
+  </urg>
+  <con>
+    <con_serial>2</con_serial>
+    <con_baud>1</con_baud>
+  </con>
+  <dr>
+    <dr_serial>3</dr_serial>
+    <dr_baud>1</dr_baud>
+  </dr>
+  <cam>
+    <cam_serial>0</cam_serial>
+    <cam_baud>1</cam_baud>
+  </cam>
+</data>
