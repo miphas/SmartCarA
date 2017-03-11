@@ -141,9 +141,10 @@ namespace Smart_Car
             this.alarm_list.EndUpdate();  //结束数据处理，UI界面一次性绘制。
             if (flag == 0)
             {
-                Thread goMap = new Thread(new ThreadStart(this.goAlongMap));
-                goMap.Start();
+                //Thread goMap = new Thread(new ThreadStart(this.goAlongMap));
+                //goMap.Start();
 
+                goAlongMap();
                 //goAlongMap(route.map.listLine);
                 system_light.FillColor = System.Drawing.Color.Blue;
                 system_label.Text = "系统状态：正在运行";
@@ -316,7 +317,7 @@ namespace Smart_Car
                         DrPort.distance.Sy = map[i].startpoint.y;
                         DrPort.distance.Sw = map[i].startpoint.w;
                     }
-                    goWithPP(map[i].startpoint, map[i].endpoint, con_port, dr_port, urg_port);
+                    goWithPP2(map[i].startpoint, map[i].endpoint, con_port, dr_port, urg_port);
                     //goWithPP(map[i].startpoint, map[i].endpoint, con_port, dr_port, urg_port);
                 }
                 else
@@ -527,59 +528,36 @@ namespace Smart_Car
             //
             // 1.旋转AGV对准方向
             //
-            while (Math.Abs(nowPos.w - des.w) > angRound) {
-                // 比例控制速度
-                int curRot = (int)(angP * (des.w - nowPos.w));
-                // 限制速度在合理范围
-                curRot = Math.Min(curRot, maxRot);
-                curRot = Math.Max(curRot, minRot);
-                // 执行转弯
-                myConPort.controlDirectAGV(0, 0, curRot);
-                Thread.Sleep(100);
-                nowPos = myDrPort.getPoint();
+            if (Math.Abs(nowPos.w - des.w) > 4 * angRound) {
+                while (Math.Abs(nowPos.w - des.w) > angRound) {
+                    // 比例控制速度
+                    int curRot = (int)(angP * (des.w - nowPos.w));
+                    // 限制速度在合理范围
+                    curRot = Navigation.getLimit(curRot, maxRot, minRot, true, true);
+                    // 执行转弯
+                    myConPort.controlDirectAGV(0, 0, curRot);
+                    Thread.Sleep(100);
+                    nowPos = myDrPort.getPoint();
+                }
             }
             //
-            // 2.判断行进方向
-            //
-            Direction direct = Direction.front;
-            // 前方向角度以及两点距离
-            double frontAngle = des.w + Math.PI / 2.0;
-            double length = Math.Sqrt(Math.Pow(res.x - des.x, 2) + Math.Pow(res.y - des.y, 2));
-            // 假设向前移动一段距离，若距离终点变近则向前移动
-            if (Math.Sqrt((Math.Pow(res.x + length * Math.Cos(frontAngle) - des.x, 2))
-                        + Math.Pow(res.y + length * Math.Sin(frontAngle) - des.y, 2)) < length) {
-                direct = Direction.front;
+            int goSpeed = 0;
+            int shSpeed = 0;
+            if (Math.Abs(res.y - des.y) < Math.Abs(res.x - des.x)) {
+                while (Math.Abs(des.x - nowPos.x) > disRound) {
+                    Navigation.getDefaultSpeed(res, des, nowPos, nowPos.w + Math.PI / 2, ref goSpeed, ref shSpeed);
+                    myConPort.controlDirectAGV(goSpeed, shSpeed, 0);
+                    Thread.Sleep(100);
+                    nowPos = myDrPort.getPoint();
+                }
             }
-            // 同上，判断是否向左
-            else if (Math.Sqrt((Math.Pow(res.x + length * Math.Cos(frontAngle + Math.PI / 2) - des.x, 2))
-                      + Math.Pow(res.y + length * Math.Sin(frontAngle + Math.PI / 2) - des.y, 2)) < length) {
-                direct = Direction.left;
-            }
-            // 同上，判断是否向右
-            else if (Math.Sqrt((Math.Pow(res.x + length * Math.Cos(frontAngle - Math.PI / 2) - des.x, 2))
-                      + Math.Pow(res.y + length * Math.Sin(frontAngle - Math.PI / 2) - des.y, 2)) < length) {
-                direct = Direction.right;
-            }
-            // 方向为向后
             else {
-                direct = Direction.behind;
-            }
-            //
-            // 3.进行移动
-            //
-            double toMoveX = des.x - res.x;
-            double toMoveY = des.y - res.y;
-            // 主偏移方向为Y
-            if (Math.Abs(toMoveX) < Math.Abs(toMoveY)) {
-                // Y方向已经走的长度占整个长度的比例
-                double rate = Math.Abs((nowPos.y - res.y) / (des.y - res.y));
-                // 此时小车x方向应在的位置
-                double xPos = res.x + rate * toMoveX;
-
-            }
-            // 主偏移方向为X
-            else {
-
+                while (Math.Abs(des.y - nowPos.y) > disRound) {
+                    Navigation.getDefaultSpeed(res, des, nowPos, nowPos.w + Math.PI / 2, ref goSpeed, ref shSpeed);
+                    myConPort.controlDirectAGV(goSpeed, shSpeed, 0);
+                    Thread.Sleep(100);
+                    nowPos = myDrPort.getPoint();
+                }
             }
 
 
