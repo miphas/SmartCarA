@@ -63,6 +63,7 @@ namespace Smart_Car
                 try
                 {
                     port.Open();
+                    AGVproject.Class.TH_RefreshUrgData.urgport = port;
                 }
                 catch(Exception)
                 {

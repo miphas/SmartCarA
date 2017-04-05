@@ -8,7 +8,7 @@ using System.IO;
 using System.IO.Ports;
 
 namespace Smart_Car {
-    class ConPort : Port {
+    public class ConPort : Port {
 
         private bool lockControl = true;
         private ConCommand conCommand;
@@ -31,7 +31,16 @@ namespace Smart_Car {
         public ConPort() {
         }
         ~ConPort() { }
-
+        private static ConPort conport;
+        public static ConPort getInstance(string portName, string portBaudrate)
+        {
+            if (conport == null)
+            {
+                conport = new ConPort();
+                conport.OpenPort(portName, portBaudrate);
+            }
+            return conport;
+        }
         /// <summary>
         /// override openPort method for ConPort 
         /// </summary>
@@ -41,6 +50,8 @@ namespace Smart_Car {
         public override bool OpenPort(string portName, string portBaudrate) {
             bool IsOpen = base.OpenPort(portName, portBaudrate);
             if (IsOpen) {
+                TH_SendCommand.controlport = base.port;
+
                 lockControl = false;
                 conCommand = new ConCommand(port);
                 posCommand = new PosCommand(port);
@@ -584,7 +595,7 @@ namespace Smart_Car {
         }
 
         public SonicCommand(SerialPort port)
-            : base(port, 4, 12) {
+            : base(port, 4, 20) {
             this.Init();
         }
 
@@ -600,17 +611,17 @@ namespace Smart_Car {
         public override bool ExecuteCommand() {
             SendCommand();
             GetReceive();
-            if (!CheckReceive(10)) {
+            if (!CheckReceive(18)) {
                 return false;
             }
-            HeadLL = GetNumber(2, 3);
-            HeadLH = GetNumber(3, 4);
-            HeadRH = GetNumber(4, 5);
-            HeadRR = GetNumber(5, 6);
-            BackRR = GetNumber(6, 7);
-            BackRB = GetNumber(7, 8);
-            BackLB = GetNumber(8, 9);
-            BackLL = GetNumber(9, 10);
+            HeadLL = GetNumber(3,4);
+            HeadLH = GetNumber(5, 6);
+            HeadRH = GetNumber(7, 8);
+            HeadRR = GetNumber(9, 10);
+            BackRR = GetNumber(11, 12);
+            BackRB = GetNumber(13, 14);
+            BackLB = GetNumber(15, 16);
+            BackLL = GetNumber(17, 18);
             return true;
         }
 
