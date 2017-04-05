@@ -304,7 +304,7 @@ namespace Smart_Car
             /////摄像头////
             //new CameraControl().cameraLeading(dr_port, con_port);
             Show_State_info("开始初始位姿校准...");
-            //urg_port_1.Init_Pos_Adjust(con_port);   //初始位姿校准
+            urg_port_1.Init_Pos_Adjust(con_port);   //初始位姿校准
             Show_State_info("初始位姿校准完毕！");
             dr_port.clearData();   //初始位姿校准完毕清空编码器数据（置0）
 

@@ -378,6 +378,7 @@ namespace Smart_Car {
 
         public void setWithOldParam(int ahead, int shift, int rotate) {
             double param = 180 / Math.PI;
+            double speed = Math.Sqrt(ahead * ahead + shift * shift);
             shift = -shift;
             if (ahead == 0 && shift >= 0) {
                 ahead = shift;
@@ -401,6 +402,8 @@ namespace Smart_Car {
                 shift = 180 + (int)(param * Math.Atan(ahead / (double)shift));
                 ahead = -ahead;
             }
+
+            ahead = (int)speed;
 
             GoingSpeed = ahead;
             ShiftSpeed = shift;

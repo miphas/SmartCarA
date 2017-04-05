@@ -244,13 +244,13 @@ namespace Smart_Car
                         MessageBox.Show("控制串口未能打开，请配置串口！");
                     return;
                 }
-                //bool Adj_ok = urg_port_1.Init_Pos_Adjust(con_port);
-                //if (Adj_ok == true)
-                //{
+                bool Adj_ok = urg_port_1.Init_Pos_Adjust(con_port);
+                if (Adj_ok == true)
+                {
                     Collect_Route1.Text = "获取路径信息";
                     Collect_Route1.BackColor = SystemColors.Control;
                     MessageBox.Show("初始位姿校准完毕！");
-                //}
+                }
             }
             else if (Collect_Route1.Text == "获取路径信息")
             {
