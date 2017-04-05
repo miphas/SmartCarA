@@ -9,6 +9,8 @@ using System.Windows.Forms;
 using System.IO;
 using System.Drawing.Imaging;
 using System.Drawing.Drawing2D;
+using AGVproject.Class;
+using URG_data_pro_1;
 
 namespace Smart_Car
 {
@@ -17,9 +19,12 @@ namespace Smart_Car
         static Route route = new Route();
         static DrPort dr_port = new DrPort();
         static ConPort con_port = new ConPort();
+        static UrgPort urg_port = new UrgPort();    //使用里面的行进位姿校准
+        static Urg_pro_1.UrgPort urg_port_1 = new Urg_pro_1.UrgPort();   //使用里面的初始位姿校准
         static XML xml_con = new XML();
         static OperatingXML operating_xml = new OperatingXML();
-        double size_rate;//图像放缩比
+        static CorrectPosition correct_pos = new CorrectPosition();  
+        double size_rate = 1;//图像放缩比
         int select_line = -1;//选中线段
         int select_point = -1;//选中点
         Map int_map = new Map();//临时地图
@@ -108,10 +113,15 @@ namespace Smart_Car
                 size_rate = (p_buttom - p_top) / draw_map1.Size.Height * 100 / (size_bar1.Value * 8);
             else
                 size_rate = (p_right - p_left) / draw_map1.Size.Width * 100 / (size_bar1.Value * 8);
+            //size_rate = 1;
             int size_rate_r = (int)(1 / size_rate);
 
             if (map.listPoint.Count() <= 1)
             {
+                if(map.listPoint.Count==1)   //显示第一个标记的关键点
+                {
+                    g.DrawImage(route_point_com, (float)(draw_map1.Size.Width / 2 - 15), (float)(draw_map1.Size.Height / 2 - 29), 30, 30);
+                }
                 return;
             }
             for (int i = 0; i < draw_map1.Width; i++)
@@ -177,12 +187,19 @@ namespace Smart_Car
         }
         private void Clear_Route1_Click(object sender, EventArgs e)//清除地面数据
         {
-            route.map.listLine.Clear();
-            route.map.listPoint.Clear();
-            route.map.listFixedRect.Clear();
-            select_line = -1;
-            select_point = -1;
-            Redraw_Panel1(route.map);
+            try
+            {
+                route.map.listLine.Clear();
+                route.map.listPoint.Clear();
+                route.map.listFixedRect.Clear();
+                select_line = -1;
+                select_point = -1;
+                Redraw_Panel1(route.map);
+            }
+            catch
+            {
+                return;
+            }
         }
         private void Clear_Route2_Click(object sender, EventArgs e)
         {
@@ -192,80 +209,107 @@ namespace Smart_Car
         }
         private void Collect_Route1_Click(object sender, EventArgs e)
         {
-            if (Collect_Route1.Text == "获取路径信息")
+            if (Collect_Route1.Text == "初始位姿校准")
             {
-            Urg_Point.Visible = true;
-            Com_Point.Visible = true;
-            Delete_Point.Visible = true;
-            groupBox1.Visible = true;
-            xml_con.read();
-            string portName = "";
-            string portBaudrate = "";
-            switch (xml_con.data[4])
-            {
-                case 0: portName = "COM1"; break;
-                case 1: portName = "COM2"; break;
-                case 2: portName = "COM3"; break;
-                case 3: portName = "COM4"; break;
-                case 4: portName = "COM5"; break;
-                case 5: portName = "COM6"; break;
-                case 6: portName = "COM7"; break;
-                case 7: portName = "COM8"; break;
-                case 8: portName = "COM9"; break;
-                case 9: portName = "COM10"; break;
-            }
-            switch (xml_con.data[5])
-            {
-                case 0: portBaudrate = "9600"; break;
-                case 1: portBaudrate = "115200"; break;
-            }
-            if (dr_port.OpenPort(portName, portBaudrate) == false)
-            {
-                MessageBox.Show("编码器串口未能打开，请配置串口！");
-                return;
-            }
-            Collect_Route1.Text = "初始位置校准";
-            route.map.listLine.Clear();
-            route.map.listPoint.Clear();
-            route.map.listFixedRect.Clear();
-
-            dr_port.clearData();
-            }
-            else if(Collect_Route1.Text == "初始位置校准")
-            {
-                string portName = "";
-                string portBaudrate = "";
-                switch (xml_con.data[2])
+                xml_con.read();
+                Collect_Route1.BackColor = Color.LightGreen;
+                string[] portName = new string[2];    //[0]:urg_port    [1]:con_port
+                string[] portBaudrate = new string[2];
+                for (int i = 0; i < 2; i++)
                 {
-                    case 0: portName = "COM1"; break;
-                    case 1: portName = "COM2"; break;
-                    case 2: portName = "COM3"; break;
-                    case 3: portName = "COM4"; break;
-                    case 4: portName = "COM5"; break;
-                    case 5: portName = "COM6"; break;
-                    case 6: portName = "COM7"; break;
-                    case 7: portName = "COM8"; break;
-                    case 8: portName = "COM9"; break;
-                    case 9: portName = "COM10"; break;
+                    switch (xml_con.data[i * 2])
+                    {
+                        case 0: portName[i] = "COM1"; break;
+                        case 1: portName[i] = "COM2"; break;
+                        case 2: portName[i] = "COM3"; break;
+                        case 3: portName[i] = "COM4"; break;
+                        case 4: portName[i] = "COM5"; break;
+                        case 5: portName[i] = "COM6"; break;
+                        case 6: portName[i] = "COM7"; break;
+                        case 7: portName[i] = "COM8"; break;
+                        case 8: portName[i] = "COM9"; break;
+                        case 9: portName[i] = "COM10"; break;
+                    }
+                    switch (xml_con.data[i * 2 + 1])
+                    {
+                        case 0: portBaudrate[i] = "9600"; break;
+                        case 1: portBaudrate[i] = "115200"; break;
+                    }
                 }
-                switch (xml_con.data[3])
+                if (!urg_port_1.OpenPort(portName[0], portBaudrate[0]) || !con_port.OpenPort(portName[1], portBaudrate[1]))
                 {
-                    case 0: portBaudrate = "9600"; break;
-                    case 1: portBaudrate = "115200"; break;
-                }
-                if (con_port.OpenPort(portName, portBaudrate) == false)
-                {
-                    MessageBox.Show("控制串口未能打开，请配置串口！");
+                    if (!urg_port_1.OpenPort(portName[0], portBaudrate[0]))
+                        MessageBox.Show("激光雷达串口未能打开，请配置串口！");
+                    else
+                        MessageBox.Show("控制串口未能打开，请配置串口！");
                     return;
                 }
-                //new CameraControl().cameraLeading(dr_port, con_port);
+                bool Adj_ok = urg_port_1.Init_Pos_Adjust(con_port);
+                if (Adj_ok == true)
+                {
+                    Collect_Route1.Text = "获取路径信息";
+                    Collect_Route1.BackColor = SystemColors.Control;
+                    MessageBox.Show("初始位姿校准完毕！");
+                }
+            }
+            else if (Collect_Route1.Text == "获取路径信息")
+            {
+                Urg_Point.Visible = true;
+                Com_Point.Visible = true;
+                Delete_Point.Visible = true;
+                groupBox1.Visible = true;
+                xml_con.read();
+                Collect_Route1.BackColor = Color.LightGreen;
+
+                string[] portName = new string[2];    //[0]:urg_port    [1]:con_port
+                string[] portBaudrate = new string[2];
+                for (int i = 0; i < 2; i++)
+                {
+                    switch (xml_con.data[i*4])
+                    {
+                        case 0: portName[i] = "COM1"; break;
+                        case 1: portName[i] = "COM2"; break;
+                        case 2: portName[i] = "COM3"; break;
+                        case 3: portName[i] = "COM4"; break;
+                        case 4: portName[i] = "COM5"; break;
+                        case 5: portName[i] = "COM6"; break;
+                        case 6: portName[i] = "COM7"; break;
+                        case 7: portName[i] = "COM8"; break;
+                        case 8: portName[i] = "COM9"; break;
+                        case 9: portName[i] = "COM10"; break;
+                    }
+                    switch (xml_con.data[i*4 + 1])
+                    {
+                        case 0: portBaudrate[i] = "9600"; break;
+                        case 1: portBaudrate[i] = "115200"; break;
+                    }
+                }
+                //if (urg_port.OpenPort(portName[0], portBaudrate[0]))
+                //    MessageBox.Show("激光雷达串口未能打开，请配置串口！");
+                if (!dr_port.OpenPort(portName[1], portBaudrate[1]))
+                    MessageBox.Show("编码器串口未能打开，请配置串口！");
+                
                 Collect_Route1.Text = "结束路径信息";
-                route.map.listLine.Clear();
-                route.map.listPoint.Clear();
-                route.map.listFixedRect.Clear();
-
-                dr_port.clearData();
-
+                Collect_Route1.BackColor = Color.LightGreen;
+                try
+                {
+                    route.map.listLine.Clear();
+                    route.map.listPoint.Clear();
+                    route.map.listFixedRect.Clear();
+                    dr_port.clearData();
+                    
+                }
+                catch
+                { 
+                    route.map = new Map();
+                    route.map.listPoint = new List<Point>();
+                    route.map.listLine = new List<Line>();
+                    route.map.listFixedRect = new List<FixedRect>();
+                };
+                //route.map.listLine.Clear();
+                //route.map.listPoint.Clear();
+                //route.map.listFixedRect.Clear();
+                //dr_port.clearData();
             }
             else
             {
@@ -277,15 +321,14 @@ namespace Smart_Car
                     r_line.endpoint = route.map.listPoint[i + 1];
                     route.map.listLine.Add(r_line);
                 }
-                    dr_port.ClosePort();
-                    con_port.ClosePort();
-                Collect_Route1.Text = "获取路径信息";
+                dr_port.ClosePort();
+                con_port.ClosePort();
+                urg_port_1.ClosePort();
+                Collect_Route1.Text = "初始位姿校准";
+                Collect_Route1.BackColor = SystemColors.Control;
                 Redraw_Panel1(route.map);
 
             }
-
-
-
         }
         private void Collect_Route2_Click(object sender, EventArgs e)
         {
@@ -673,8 +716,14 @@ namespace Smart_Car
         private void Com_Point_Click(object sender, EventArgs e)
         {
             Point r_point = new Point();
+            double[] urg_k_b = new double[3];
             r_point = dr_port.getPoint();
+            urg_k_b = correct_pos.GetUrg_K_B();  //获取小车前面拟合直线的信息  [0]:是否校准点  [1]:K  [2]:B
             r_point.direc = false;
+
+            r_point.Can_Adj = urg_k_b[0];
+            r_point.UrgK = urg_k_b[1];
+            r_point.UrgB = urg_k_b[2];
             route.map.listPoint.Add(r_point);
 
             route.map.listLine.Clear();
@@ -696,8 +745,13 @@ namespace Smart_Car
         private void Urg_Point_Click(object sender, EventArgs e)
         {
             Point r_point = new Point();
+            double[] urg_k_b = new double[3];
             r_point = dr_port.getPoint();
+            urg_k_b = correct_pos.GetUrg_K_B();  //获取小车前面拟合直线的信息  [0]:是否校准点  [1]:K  [2]:B
             r_point.direc = true;
+            r_point.Can_Adj = urg_k_b[0];
+            r_point.UrgK = urg_k_b[1];
+            r_point.UrgB = urg_k_b[2];
             route.map.listPoint.Add(r_point);
 
             route.map.listLine.Clear();
@@ -744,37 +798,38 @@ namespace Smart_Car
         //当鼠标停留在画板控件上方时，实时显示鼠标的坐标值（x,y）
         private void draw_map1_MouseMove(object sender, MouseEventArgs e)
         {
-            double p_left = 0, p_right = 0, p_top = 0, p_buttom = 0;//MAP四个角落值
-            for (int i = 0; i < route.map.listPoint.Count(); i++)     //计算MAP四个角落值
-            {
-                if (i == 0)
+                double p_left = 0, p_right = 0, p_top = 0, p_buttom = 0;//MAP四个角落值
+                for (int i = 0; i < route.map.listPoint.Count(); i++)     //计算MAP四个角落值
                 {
-                    p_left = route.map.listPoint[i].x;
-                    p_right = route.map.listPoint[i].x;
-                    p_top = route.map.listPoint[i].y;
-                    p_buttom = route.map.listPoint[i].y;
-                }
-                else
-                {
-                    if (p_left > route.map.listPoint[i].x)
+                    if (i == 0)
+                    {
                         p_left = route.map.listPoint[i].x;
-                    if (p_right < route.map.listPoint[i].x)
                         p_right = route.map.listPoint[i].x;
-                    if (p_top > route.map.listPoint[i].y)
                         p_top = route.map.listPoint[i].y;
-                    if (p_buttom < route.map.listPoint[i].y)
                         p_buttom = route.map.listPoint[i].y;
+                    }
+                    else
+                    {
+                        if (p_left > route.map.listPoint[i].x)
+                            p_left = route.map.listPoint[i].x;
+                        if (p_right < route.map.listPoint[i].x)
+                            p_right = route.map.listPoint[i].x;
+                        if (p_top > route.map.listPoint[i].y)
+                            p_top = route.map.listPoint[i].y;
+                        if (p_buttom < route.map.listPoint[i].y)
+                            p_buttom = route.map.listPoint[i].y;
+                    }
                 }
-            }
-            if ((p_buttom - p_top) / draw_map1.Size.Height > (p_right - p_left) / draw_map1.Size.Width)
-                size_rate = (p_buttom - p_top) / draw_map1.Size.Height * 100 / (size_bar1.Value * 8);
-            else
-                size_rate = (p_right - p_left) / draw_map1.Size.Width * 100 / (size_bar1.Value * 8);
+                if ((p_buttom - p_top) / draw_map1.Size.Height > (p_right - p_left) / draw_map1.Size.Width)
+                    size_rate = (p_buttom - p_top) / draw_map1.Size.Height * 100 / (size_bar1.Value * 8);
+                else
+                    size_rate = (p_right - p_left) / draw_map1.Size.Width * 100 / (size_bar1.Value * 8);
 
-            double x = (e.X - draw_map1.Size.Width / 2) * size_rate + (p_right + p_left) / 2;
-            double y = ((draw_map1.Size.Height - e.Y) - draw_map1.Size.Height / 2) * size_rate + (p_buttom + p_top) / 2;
-            mouse_Point = "(" + x.ToString("#0.00") + "," + y.ToString("#0.00") + ")";   //鼠标实时坐标
-            show_mouse_P.Show(mouse_Point, draw_map1);
+                double x = (e.X - draw_map1.Size.Width / 2) * size_rate + (p_right + p_left) / 2;
+                double y = ((draw_map1.Size.Height - e.Y) - draw_map1.Size.Height / 2) * size_rate + (p_buttom + p_top) / 2;
+                mouse_Point = "(" + x.ToString("#0.00") + "," + y.ToString("#0.00") + ")";   //鼠标实时坐标
+                show_mouse_P.Show(mouse_Point, draw_map1);
+            
         }
 
         private void 普通关键点ToolStripMenuItem_Click(object sender, EventArgs e)

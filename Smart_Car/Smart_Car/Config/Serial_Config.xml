@@ -5,7 +5,7 @@
     <urg_baud>1</urg_baud>
   </urg>
   <con>
-    <con_serial>8</con_serial>
+    <con_serial>2</con_serial>
     <con_baud>1</con_baud>
   </con>
   <dr>

@@ -10,7 +10,7 @@ namespace Smart_Car {
     /// <summary>
     /// class Port, the super class for all serial port drivers used in autocar
     /// </summary>
-    class Port {
+    public class Port {
         /// <summary>
         /// Name and baudrate are necessary to create an insatnce of serial port
         /// </summary>

@@ -7,84 +7,30 @@
       <w>0</w>
       <type>0</type>
       <direc>False</direc>
+      <Can_Adj>1</Can_Adj>
+      <UrgK>-2.91406706460613</UrgK>
+      <UrgB>512.954404154342</UrgB>
     </roadpoint1>
     <roadpoint2>
-      <x>-0.0284473725357861</x>
-      <y>4.25114103878344</y>
-      <w>0.00507767075421178</w>
+      <x>0.739924268955461</x>
+      <y>0.0206778431256868</y>
+      <w>0.0357074911102636</w>
       <type>0</type>
       <direc>False</direc>
+      <Can_Adj>1</Can_Adj>
+      <UrgK>-3.227475612891</UrgK>
+      <UrgB>507.383935733777</UrgB>
     </roadpoint2>
     <roadpoint3>
-      <x>-0.607219272761189</x>
-      <y>4.71794689901864</y>
-      <w>0.891868298602684</w>
+      <x>0.778287915849808</x>
+      <y>-0.981437246046223</y>
+      <w>0.168545909873675</w>
       <type>0</type>
       <direc>False</direc>
+      <Can_Adj>0</Can_Adj>
+      <UrgK>0</UrgK>
+      <UrgB>0</UrgB>
     </roadpoint3>
-    <roadpoint4>
-      <x>-1.03694068776934</x>
-      <y>4.69771238108152</y>
-      <w>1.6263288038248</w>
-      <type>0</type>
-      <direc>False</direc>
-    </roadpoint4>
-    <roadpoint5>
-      <x>-1.59055127033033</x>
-      <y>4.43858218157588</y>
-      <w>2.00551615208288</w>
-      <type>0</type>
-      <direc>False</direc>
-    </roadpoint5>
-    <roadpoint6>
-      <x>-1.7713881143134</x>
-      <y>4.2203358613389</y>
-      <w>2.45464432008445</w>
-      <type>0</type>
-      <direc>False</direc>
-    </roadpoint6>
-    <roadpoint7>
-      <x>-1.86007442002474</x>
-      <y>4.0619816079801</y>
-      <w>2.62892308403546</w>
-      <type>0</type>
-      <direc>False</direc>
-    </roadpoint7>
-    <roadpoint8>
-      <x>-1.93477968349158</x>
-      <y>3.82313226862038</y>
-      <w>2.83825415577361</w>
-      <type>0</type>
-      <direc>False</direc>
-    </roadpoint8>
-    <roadpoint9>
-      <x>-1.93280464813795</x>
-      <y>3.69371938178364</y>
-      <w>3.16158712573535</w>
-      <type>0</type>
-      <direc>False</direc>
-    </roadpoint9>
-    <roadpoint10>
-      <x>-2.05636786101505</x>
-      <y>3.69599182195441</y>
-      <w>3.15847500495051</w>
-      <type>0</type>
-      <direc>False</direc>
-    </roadpoint10>
-    <roadpoint11>
-      <x>-1.83813698587139</x>
-      <y>-0.137823314806433</y>
-      <w>3.19287212941452</w>
-      <type>0</type>
-      <direc>False</direc>
-    </roadpoint11>
-    <roadpoint12>
-      <x>-2.05002032208593</x>
-      <y>4.07602861703108</y>
-      <w>3.19631184186092</w>
-      <type>0</type>
-      <direc>False</direc>
-    </roadpoint12>
   </point>
   <line>
     <l1>
@@ -94,13 +40,19 @@
         <w>0</w>
         <type>0</type>
         <direc>False</direc>
+        <Can_Adj>1</Can_Adj>
+        <UrgK>-2.91406706460613</UrgK>
+        <UrgB>512.954404154342</UrgB>
       </startpoint>
       <endpoint>
-        <x>-0.0284473725357861</x>
-        <y>4.25114103878344</y>
-        <w>0.00507767075421178</w>
+        <x>0.739924268955461</x>
+        <y>0.0206778431256868</y>
+        <w>0.0357074911102636</w>
         <type>0</type>
         <direc>False</direc>
+        <Can_Adj>1</Can_Adj>
+        <UrgK>-3.227475612891</UrgK>
+        <UrgB>507.383935733777</UrgB>
       </endpoint>
       <rightstate>False</rightstate>
       <leftstate>False</leftstate>
@@ -108,193 +60,28 @@
     </l1>
     <l2>
       <startpoint>
-        <x>-0.0284473725357861</x>
-        <y>4.25114103878344</y>
-        <w>0.00507767075421178</w>
+        <x>0.739924268955461</x>
+        <y>0.0206778431256868</y>
+        <w>0.0357074911102636</w>
         <type>0</type>
         <direc>False</direc>
+        <Can_Adj>1</Can_Adj>
+        <UrgK>-3.227475612891</UrgK>
+        <UrgB>507.383935733777</UrgB>
       </startpoint>
       <endpoint>
-        <x>-0.607219272761189</x>
-        <y>4.71794689901864</y>
-        <w>0.891868298602684</w>
+        <x>0.778287915849808</x>
+        <y>-0.981437246046223</y>
+        <w>0.168545909873675</w>
         <type>0</type>
         <direc>False</direc>
+        <Can_Adj>0</Can_Adj>
+        <UrgK>0</UrgK>
+        <UrgB>0</UrgB>
       </endpoint>
       <rightstate>False</rightstate>
       <leftstate>False</leftstate>
       <num>0</num>
     </l2>
-    <l3>
-      <startpoint>
-        <x>-0.607219272761189</x>
-        <y>4.71794689901864</y>
-        <w>0.891868298602684</w>
-        <type>0</type>
-        <direc>False</direc>
-      </startpoint>
-      <endpoint>
-        <x>-1.03694068776934</x>
-        <y>4.69771238108152</y>
-        <w>1.6263288038248</w>
-        <type>0</type>
-        <direc>False</direc>
-      </endpoint>
-      <rightstate>False</rightstate>
-      <leftstate>False</leftstate>
-      <num>0</num>
-    </l3>
-    <l4>
-      <startpoint>
-        <x>-1.03694068776934</x>
-        <y>4.69771238108152</y>
-        <w>1.6263288038248</w>
-        <type>0</type>
-        <direc>False</direc>
-      </startpoint>
-      <endpoint>
-        <x>-1.59055127033033</x>
-        <y>4.43858218157588</y>
-        <w>2.00551615208288</w>
-        <type>0</type>
-        <direc>False</direc>
-      </endpoint>
-      <rightstate>False</rightstate>
-      <leftstate>False</leftstate>
-      <num>0</num>
-    </l4>
-    <l5>
-      <startpoint>
-        <x>-1.59055127033033</x>
-        <y>4.43858218157588</y>
-        <w>2.00551615208288</w>
-        <type>0</type>
-        <direc>False</direc>
-      </startpoint>
-      <endpoint>
-        <x>-1.7713881143134</x>
-        <y>4.2203358613389</y>
-        <w>2.45464432008445</w>
-        <type>0</type>
-        <direc>False</direc>
-      </endpoint>
-      <rightstate>False</rightstate>
-      <leftstate>False</leftstate>
-      <num>0</num>
-    </l5>
-    <l6>
-      <startpoint>
-        <x>-1.7713881143134</x>
-        <y>4.2203358613389</y>
-        <w>2.45464432008445</w>
-        <type>0</type>
-        <direc>False</direc>
-      </startpoint>
-      <endpoint>
-        <x>-1.86007442002474</x>
-        <y>4.0619816079801</y>
-        <w>2.62892308403546</w>
-        <type>0</type>
-        <direc>False</direc>
-      </endpoint>
-      <rightstate>False</rightstate>
-      <leftstate>False</leftstate>
-      <num>0</num>
-    </l6>
-    <l7>
-      <startpoint>
-        <x>-1.86007442002474</x>
-        <y>4.0619816079801</y>
-        <w>2.62892308403546</w>
-        <type>0</type>
-        <direc>False</direc>
-      </startpoint>
-      <endpoint>
-        <x>-1.93477968349158</x>
-        <y>3.82313226862038</y>
-        <w>2.83825415577361</w>
-        <type>0</type>
-        <direc>False</direc>
-      </endpoint>
-      <rightstate>False</rightstate>
-      <leftstate>False</leftstate>
-      <num>0</num>
-    </l7>
-    <l8>
-      <startpoint>
-        <x>-1.93477968349158</x>
-        <y>3.82313226862038</y>
-        <w>2.83825415577361</w>
-        <type>0</type>
-        <direc>False</direc>
-      </startpoint>
-      <endpoint>
-        <x>-1.93280464813795</x>
-        <y>3.69371938178364</y>
-        <w>3.16158712573535</w>
-        <type>0</type>
-        <direc>False</direc>
-      </endpoint>
-      <rightstate>False</rightstate>
-      <leftstate>False</leftstate>
-      <num>0</num>
-    </l8>
-    <l9>
-      <startpoint>
-        <x>-1.93280464813795</x>
-        <y>3.69371938178364</y>
-        <w>3.16158712573535</w>
-        <type>0</type>
-        <direc>False</direc>
-      </startpoint>
-      <endpoint>
-        <x>-2.05636786101505</x>
-        <y>3.69599182195441</y>
-        <w>3.15847500495051</w>
-        <type>0</type>
-        <direc>False</direc>
-      </endpoint>
-      <rightstate>False</rightstate>
-      <leftstate>False</leftstate>
-      <num>0</num>
-    </l9>
-    <l10>
-      <startpoint>
-        <x>-2.05636786101505</x>
-        <y>3.69599182195441</y>
-        <w>3.15847500495051</w>
-        <type>0</type>
-        <direc>False</direc>
-      </startpoint>
-      <endpoint>
-        <x>-1.83813698587139</x>
-        <y>-0.137823314806433</y>
-        <w>3.19287212941452</w>
-        <type>0</type>
-        <direc>False</direc>
-      </endpoint>
-      <rightstate>False</rightstate>
-      <leftstate>False</leftstate>
-      <num>0</num>
-    </l10>
-    <l11>
-      <startpoint>
-        <x>-1.83813698587139</x>
-        <y>-0.137823314806433</y>
-        <w>3.19287212941452</w>
-        <type>0</type>
-        <direc>False</direc>
-      </startpoint>
-      <endpoint>
-        <x>-2.05002032208593</x>
-        <y>4.07602861703108</y>
-        <w>3.19631184186092</w>
-        <type>0</type>
-        <direc>False</direc>
-      </endpoint>
-      <rightstate>False</rightstate>
-      <leftstate>False</leftstate>
-      <num>0</num>
-    </l11>
   </line>
 </Information>
