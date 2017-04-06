@@ -55,10 +55,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="class\ConPort.cs" />
+    <Compile Include="class\CorrectPosition.cs" />
     <Compile Include="class\DrPort.cs" />
+    <Compile Include="class\KalmanSingle.cs" />
     <Compile Include="class\Map.cs" />
     <Compile Include="class\NetSender.cs" />
+    <Compile Include="class\TH_RefreshUrgData.cs" />
+    <Compile Include="class\TH_SendCommand.cs" />
     <Compile Include="class\UrgPort.cs" />
+    <Compile Include="class\Urg_pro_1.cs" />
     <Compile Include="class\XML.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>

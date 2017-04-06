@@ -55,6 +55,10 @@
             this.point_set = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.确定ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.取消ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.删除ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.关键点类型ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.普通关键点ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.激光雷达关键点ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.line_set = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.垛区编号ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
@@ -93,10 +97,6 @@
             this.取消ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.show_mouse_P = new System.Windows.Forms.ToolTip(this.components);
-            this.删除ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.关键点类型ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.普通关键点ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.激光雷达关键点ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.size_bar2)).BeginInit();
             this.map_deal_select.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -116,7 +116,6 @@
             this.draw_map1.Size = new System.Drawing.Size(626, 423);
             this.draw_map1.TabIndex = 0;
             this.draw_map1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Deal_Message);
-            this.draw_map1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.draw_map1_MouseMove);
             // 
             // label2
             // 
@@ -220,7 +219,7 @@
             this.groupBox1.Controls.Add(this.Com_Point);
             this.groupBox1.Controls.Add(this.Urg_Point);
             this.groupBox1.Controls.Add(this.Delete_Point);
-            this.groupBox1.Location = new System.Drawing.Point(655, 165);
+            this.groupBox1.Location = new System.Drawing.Point(655, 124);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(134, 133);
             this.groupBox1.TabIndex = 0;
@@ -264,17 +263,17 @@
             // 
             // Collect_Route1
             // 
-            this.Collect_Route1.Location = new System.Drawing.Point(668, 346);
+            this.Collect_Route1.Location = new System.Drawing.Point(668, 341);
             this.Collect_Route1.Name = "Collect_Route1";
             this.Collect_Route1.Size = new System.Drawing.Size(99, 23);
             this.Collect_Route1.TabIndex = 23;
-            this.Collect_Route1.Text = "获取路径信息";
+            this.Collect_Route1.Text = "初始位姿校准";
             this.Collect_Route1.UseVisualStyleBackColor = true;
             this.Collect_Route1.Click += new System.EventHandler(this.Collect_Route1_Click);
             // 
             // Clear_Route1
             // 
-            this.Clear_Route1.Location = new System.Drawing.Point(668, 304);
+            this.Clear_Route1.Location = new System.Drawing.Point(668, 293);
             this.Clear_Route1.Name = "Clear_Route1";
             this.Clear_Route1.Size = new System.Drawing.Size(99, 23);
             this.Clear_Route1.TabIndex = 22;
@@ -284,7 +283,7 @@
             // 
             // Save_Route1
             // 
-            this.Save_Route1.Location = new System.Drawing.Point(668, 385);
+            this.Save_Route1.Location = new System.Drawing.Point(668, 387);
             this.Save_Route1.Name = "Save_Route1";
             this.Save_Route1.Size = new System.Drawing.Size(99, 23);
             this.Save_Route1.TabIndex = 21;
@@ -364,21 +363,51 @@
             this.删除ToolStripMenuItem,
             this.关键点类型ToolStripMenuItem});
             this.point_set.Name = "contextMenuStrip1";
-            this.point_set.Size = new System.Drawing.Size(153, 114);
+            this.point_set.Size = new System.Drawing.Size(137, 92);
             // 
             // 确定ToolStripMenuItem
             // 
             this.确定ToolStripMenuItem.Name = "确定ToolStripMenuItem";
-            this.确定ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.确定ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.确定ToolStripMenuItem.Text = "确定";
             this.确定ToolStripMenuItem.Click += new System.EventHandler(this.确定ToolStripMenuItem_Click);
             // 
             // 取消ToolStripMenuItem
             // 
             this.取消ToolStripMenuItem.Name = "取消ToolStripMenuItem";
-            this.取消ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.取消ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.取消ToolStripMenuItem.Text = "取消";
             this.取消ToolStripMenuItem.Click += new System.EventHandler(this.取消ToolStripMenuItem_Click);
+            // 
+            // 删除ToolStripMenuItem
+            // 
+            this.删除ToolStripMenuItem.Name = "删除ToolStripMenuItem";
+            this.删除ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.删除ToolStripMenuItem.Text = "删除";
+            this.删除ToolStripMenuItem.Click += new System.EventHandler(this.删除ToolStripMenuItem_Click);
+            // 
+            // 关键点类型ToolStripMenuItem
+            // 
+            this.关键点类型ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.普通关键点ToolStripMenuItem,
+            this.激光雷达关键点ToolStripMenuItem});
+            this.关键点类型ToolStripMenuItem.Name = "关键点类型ToolStripMenuItem";
+            this.关键点类型ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.关键点类型ToolStripMenuItem.Text = "关键点类型";
+            // 
+            // 普通关键点ToolStripMenuItem
+            // 
+            this.普通关键点ToolStripMenuItem.Name = "普通关键点ToolStripMenuItem";
+            this.普通关键点ToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.普通关键点ToolStripMenuItem.Text = "普通关键点";
+            this.普通关键点ToolStripMenuItem.Click += new System.EventHandler(this.普通关键点ToolStripMenuItem_Click);
+            // 
+            // 激光雷达关键点ToolStripMenuItem
+            // 
+            this.激光雷达关键点ToolStripMenuItem.Name = "激光雷达关键点ToolStripMenuItem";
+            this.激光雷达关键点ToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.激光雷达关键点ToolStripMenuItem.Text = "激光雷达关键点";
+            this.激光雷达关键点ToolStripMenuItem.Click += new System.EventHandler(this.激光雷达关键点ToolStripMenuItem_Click);
             // 
             // line_set
             // 
@@ -666,36 +695,6 @@
             this.取消ToolStripMenuItem1.Text = "取消";
             this.取消ToolStripMenuItem1.Click += new System.EventHandler(this.取消ToolStripMenuItem1_Click);
             // 
-            // 删除ToolStripMenuItem
-            // 
-            this.删除ToolStripMenuItem.Name = "删除ToolStripMenuItem";
-            this.删除ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.删除ToolStripMenuItem.Text = "删除";
-            this.删除ToolStripMenuItem.Click += new System.EventHandler(this.删除ToolStripMenuItem_Click);
-            // 
-            // 关键点类型ToolStripMenuItem
-            // 
-            this.关键点类型ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.普通关键点ToolStripMenuItem,
-            this.激光雷达关键点ToolStripMenuItem});
-            this.关键点类型ToolStripMenuItem.Name = "关键点类型ToolStripMenuItem";
-            this.关键点类型ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.关键点类型ToolStripMenuItem.Text = "关键点类型";
-            // 
-            // 普通关键点ToolStripMenuItem
-            // 
-            this.普通关键点ToolStripMenuItem.Name = "普通关键点ToolStripMenuItem";
-            this.普通关键点ToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
-            this.普通关键点ToolStripMenuItem.Text = "普通关键点";
-            this.普通关键点ToolStripMenuItem.Click += new System.EventHandler(this.普通关键点ToolStripMenuItem_Click);
-            // 
-            // 激光雷达关键点ToolStripMenuItem
-            // 
-            this.激光雷达关键点ToolStripMenuItem.Name = "激光雷达关键点ToolStripMenuItem";
-            this.激光雷达关键点ToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
-            this.激光雷达关键点ToolStripMenuItem.Text = "激光雷达关键点";
-            this.激光雷达关键点ToolStripMenuItem.Click += new System.EventHandler(this.激光雷达关键点ToolStripMenuItem_Click);
-            // 
             // Map_Config_Window
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -705,7 +704,6 @@
             this.Name = "Map_Config_Window";
             this.Text = "地图配置";
             this.Load += new System.EventHandler(this.Map_Config_Window_Load);
-            this.Shown += new System.EventHandler(this.Map_Config_Window_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.size_bar2)).EndInit();
             this.map_deal_select.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
