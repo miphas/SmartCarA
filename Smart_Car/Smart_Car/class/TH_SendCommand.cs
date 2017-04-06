@@ -98,7 +98,7 @@ namespace Smart_Car
                 while (TH_control != null && TH_control.ThreadState == System.Threading.ThreadState.Running) { return false; } ;
                 TH_data.TH_cmd_abort = false;
                 TH_control = new System.Threading.Thread(SendCommand_100ms);
-                TH_control.Start();
+               TH_control.Start();
 
                 return true;
             }
@@ -209,7 +209,7 @@ namespace Smart_Car
             controlport.DataReceived += portDataReceived;
             Initial_TH_SendCommand();
             //while (TH_control != null && TH_control.ThreadState == System.Threading.ThreadState.Running) { retur; };
-            TH_control.Start();
+           // TH_control.Start();
 
             // 填充命令
             byte[] SonicCommand = new byte[4] { 0xf1, 0x86, 0x00, 0x00 };

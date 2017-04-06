@@ -9,7 +9,7 @@ using SCIP_library;
 
 namespace Smart_Car
 {
-    class UrgPort : Port{
+    public class UrgPort : Port{
         struct MyPointer
         {
             public double x;
@@ -72,8 +72,8 @@ namespace Smart_Car
                 }
                 port.Write(SCIP_Writer.SCIP2());
                 port.ReadLine();
-                port.Write(SCIP_Writer.MD(startStep, endStep));
-                port.ReadLine();
+                //port.Write(SCIP_Writer.MD(startStep, endStep));
+                //port.ReadLine();
                 return true;
             }
             return false;
@@ -126,6 +126,12 @@ namespace Smart_Car
         //接收数据
         private bool getUrgData()
         {
+            port.NewLine = "\n\n";
+            port.Write(SCIP_Writer.MD(startStep, endStep));
+            port.ReadLine();
+            System.Threading.Thread.Sleep(20);
+            clearData();
+
             string receiveData = port.ReadLine();
             if (!SCIP_Reader.MD(receiveData, ref timeStamp, ref distance))
             {

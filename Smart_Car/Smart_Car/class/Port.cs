@@ -16,7 +16,7 @@ namespace Smart_Car {
         /// </summary>
         protected string portName;
         protected string portBaudrate;
-        protected SerialPort port;
+        public SerialPort port;
 
         /// <summary>
         /// default constructor

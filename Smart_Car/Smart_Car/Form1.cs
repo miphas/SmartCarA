@@ -21,7 +21,7 @@ namespace Smart_Car
         static TH_SendCommand th_sendCommand = new TH_SendCommand();
         static DrPort dr_port = new DrPort();
         static ConPort con_port = new ConPort();
-        static UrgPort urg_port = new UrgPort();
+        public static UrgPort urg_port = new UrgPort();
         static Urg_pro_1.UrgPort urg_port_1 = new Urg_pro_1.UrgPort();   //用来校准用激光雷达数据
         static XML xml_con = new XML();
         static Route route = new Route();

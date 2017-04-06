@@ -86,7 +86,7 @@ namespace Smart_Car {
             //conCommand.GoingSpeed = goingSpeed;
             //conCommand.ShiftSpeed = shiftSpeed;
             //conCommand.RotateSpeed = rotateSpeed;
-
+            rotateSpeed = Math.Max(-10, Math.Min(10, rotateSpeed));
             //20160531
             conCommand.setWithOldParam(goingSpeed, shiftSpeed, rotateSpeed);
 

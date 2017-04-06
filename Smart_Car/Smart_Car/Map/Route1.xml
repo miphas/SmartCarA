@@ -8,23 +8,23 @@
       <type>0</type>
       <direc>False</direc>
       <Can_Adj>1</Can_Adj>
-      <UrgK>2.30151607515139</UrgK>
-      <UrgB>518.050391781486</UrgB>
+      <UrgK>10.9067990203934</UrgK>
+      <UrgB>520.337525177575</UrgB>
     </roadpoint1>
     <roadpoint2>
-      <x>0.928499672059875</x>
-      <y>0.00903375488291274</y>
-      <w>0.0167071747396646</w>
+      <x>-0.00273353573379493</x>
+      <y>-0.958806529214004</y>
+      <w>-0.000491387492343076</w>
       <type>0</type>
       <direc>False</direc>
-      <Can_Adj>1</Can_Adj>
-      <UrgK>13.9147380263572</UrgK>
-      <UrgB>508.05381742164</UrgB>
+      <Can_Adj>0</Can_Adj>
+      <UrgK>0</UrgK>
+      <UrgB>0</UrgB>
     </roadpoint2>
     <roadpoint3>
-      <x>0.943087141711571</x>
-      <y>-1.19738045206691</y>
-      <w>0.0606044573889794</w>
+      <x>-1.40742591304007</x>
+      <y>-0.943610537697099</y>
+      <w>-0.00311212078483949</w>
       <type>0</type>
       <direc>False</direc>
       <Can_Adj>0</Can_Adj>
@@ -32,25 +32,85 @@
       <UrgB>0</UrgB>
     </roadpoint3>
     <roadpoint4>
-      <x>1.67606598836043</x>
-      <y>-1.17396785961558</y>
-      <w>-1.55884492154302</w>
+      <x>-1.4091660036228</x>
+      <y>-0.382741585175479</y>
+      <w>-0.00720701655436513</w>
       <type>0</type>
-      <direc>False</direc>
+      <direc>True</direc>
       <Can_Adj>0</Can_Adj>
       <UrgK>0</UrgK>
       <UrgB>0</UrgB>
     </roadpoint4>
     <roadpoint5>
-      <x>1.56960797700099</x>
-      <y>0.195125331162071</y>
-      <w>0.0794409779287935</w>
+      <x>-1.3695432065704</x>
+      <y>4.42691829580503</y>
+      <w>-0.012612278970139</w>
+      <type>0</type>
+      <direc>True</direc>
+      <Can_Adj>1</Can_Adj>
+      <UrgK>0.104004986624661</UrgK>
+      <UrgB>1168.78327533245</UrgB>
+    </roadpoint5>
+    <roadpoint6>
+      <x>-1.3610445086985</x>
+      <y>4.96855106681086</y>
+      <w>-0.0158881955857595</w>
       <type>0</type>
       <direc>False</direc>
       <Can_Adj>1</Can_Adj>
-      <UrgK>15.5442283902172</UrgK>
-      <UrgB>376.602769005104</UrgB>
-    </roadpoint5>
+      <UrgK>3.7558231120488</UrgK>
+      <UrgB>632.750798915863</UrgB>
+    </roadpoint6>
+    <roadpoint7>
+      <x>-1.3711251913769</x>
+      <y>4.47982536874709</y>
+      <w>-0.0211296621707523</w>
+      <type>0</type>
+      <direc>True</direc>
+      <Can_Adj>1</Can_Adj>
+      <UrgK>0.756269247520503</UrgK>
+      <UrgB>1116.75812205467</UrgB>
+    </roadpoint7>
+    <roadpoint8>
+      <x>-1.45938118546021</x>
+      <y>0.843312834742712</y>
+      <w>-0.0239141912940297</w>
+      <type>0</type>
+      <direc>True</direc>
+      <Can_Adj>0</Can_Adj>
+      <UrgK>0</UrgK>
+      <UrgB>0</UrgB>
+    </roadpoint8>
+    <roadpoint9>
+      <x>-1.51288230712049</x>
+      <y>-0.999770203484421</y>
+      <w>-0.0266987204173072</w>
+      <type>0</type>
+      <direc>False</direc>
+      <Can_Adj>0</Can_Adj>
+      <UrgK>0</UrgK>
+      <UrgB>0</UrgB>
+    </roadpoint9>
+    <roadpoint10>
+      <x>-0.190557573908805</x>
+      <y>-1.02934286447356</y>
+      <w>-0.0222762329862196</w>
+      <type>0</type>
+      <direc>False</direc>
+      <Can_Adj>0</Can_Adj>
+      <UrgK>0</UrgK>
+      <UrgB>0</UrgB>
+    </roadpoint10>
+    <roadpoint11>
+      <x>-0.167737849929492</x>
+      <y>0.0236989652868505</y>
+      <w>-0.0234228038016867</w>
+      <type>0</type>
+      <direc>False</direc>
+      <Can_Adj>1</Can_Adj>
+      <UrgK>0.83887203508718</UrgK>
+      <UrgB>456.356782188326</UrgB>
+    </roadpoint11>
   </point>
   <line>
     <l1>
@@ -61,18 +121,18 @@
         <type>0</type>
         <direc>False</direc>
         <Can_Adj>1</Can_Adj>
-        <UrgK>2.30151607515139</UrgK>
-        <UrgB>518.050391781486</UrgB>
+        <UrgK>10.9067990203934</UrgK>
+        <UrgB>520.337525177575</UrgB>
       </startpoint>
       <endpoint>
-        <x>0.928499672059875</x>
-        <y>0.00903375488291274</y>
-        <w>0.0167071747396646</w>
+        <x>-0.00273353573379493</x>
+        <y>-0.958806529214004</y>
+        <w>-0.000491387492343076</w>
         <type>0</type>
         <direc>False</direc>
-        <Can_Adj>1</Can_Adj>
-        <UrgK>13.9147380263572</UrgK>
-        <UrgB>508.05381742164</UrgB>
+        <Can_Adj>0</Can_Adj>
+        <UrgK>0</UrgK>
+        <UrgB>0</UrgB>
       </endpoint>
       <rightstate>False</rightstate>
       <leftstate>False</leftstate>
@@ -80,19 +140,19 @@
     </l1>
     <l2>
       <startpoint>
-        <x>0.928499672059875</x>
-        <y>0.00903375488291274</y>
-        <w>0.0167071747396646</w>
+        <x>-0.00273353573379493</x>
+        <y>-0.958806529214004</y>
+        <w>-0.000491387492343076</w>
         <type>0</type>
         <direc>False</direc>
-        <Can_Adj>1</Can_Adj>
-        <UrgK>13.9147380263572</UrgK>
-        <UrgB>508.05381742164</UrgB>
+        <Can_Adj>0</Can_Adj>
+        <UrgK>0</UrgK>
+        <UrgB>0</UrgB>
       </startpoint>
       <endpoint>
-        <x>0.943087141711571</x>
-        <y>-1.19738045206691</y>
-        <w>0.0606044573889794</w>
+        <x>-1.40742591304007</x>
+        <y>-0.943610537697099</y>
+        <w>-0.00311212078483949</w>
         <type>0</type>
         <direc>False</direc>
         <Can_Adj>0</Can_Adj>
@@ -105,9 +165,9 @@
     </l2>
     <l3>
       <startpoint>
-        <x>0.943087141711571</x>
-        <y>-1.19738045206691</y>
-        <w>0.0606044573889794</w>
+        <x>-1.40742591304007</x>
+        <y>-0.943610537697099</y>
+        <w>-0.00311212078483949</w>
         <type>0</type>
         <direc>False</direc>
         <Can_Adj>0</Can_Adj>
@@ -115,11 +175,11 @@
         <UrgB>0</UrgB>
       </startpoint>
       <endpoint>
-        <x>1.67606598836043</x>
-        <y>-1.17396785961558</y>
-        <w>-1.55884492154302</w>
+        <x>-1.4091660036228</x>
+        <y>-0.382741585175479</y>
+        <w>-0.00720701655436513</w>
         <type>0</type>
-        <direc>False</direc>
+        <direc>True</direc>
         <Can_Adj>0</Can_Adj>
         <UrgK>0</UrgK>
         <UrgB>0</UrgB>
@@ -130,9 +190,134 @@
     </l3>
     <l4>
       <startpoint>
-        <x>1.67606598836043</x>
-        <y>-1.17396785961558</y>
-        <w>-1.55884492154302</w>
+        <x>-1.4091660036228</x>
+        <y>-0.382741585175479</y>
+        <w>-0.00720701655436513</w>
+        <type>0</type>
+        <direc>True</direc>
+        <Can_Adj>0</Can_Adj>
+        <UrgK>0</UrgK>
+        <UrgB>0</UrgB>
+      </startpoint>
+      <endpoint>
+        <x>-1.3695432065704</x>
+        <y>4.42691829580503</y>
+        <w>-0.012612278970139</w>
+        <type>0</type>
+        <direc>True</direc>
+        <Can_Adj>1</Can_Adj>
+        <UrgK>0.104004986624661</UrgK>
+        <UrgB>1168.78327533245</UrgB>
+      </endpoint>
+      <rightstate>False</rightstate>
+      <leftstate>False</leftstate>
+      <num>1</num>
+    </l4>
+    <l5>
+      <startpoint>
+        <x>-1.3695432065704</x>
+        <y>4.42691829580503</y>
+        <w>-0.012612278970139</w>
+        <type>0</type>
+        <direc>True</direc>
+        <Can_Adj>1</Can_Adj>
+        <UrgK>0.104004986624661</UrgK>
+        <UrgB>1168.78327533245</UrgB>
+      </startpoint>
+      <endpoint>
+        <x>-1.3610445086985</x>
+        <y>4.96855106681086</y>
+        <w>-0.0158881955857595</w>
+        <type>0</type>
+        <direc>False</direc>
+        <Can_Adj>1</Can_Adj>
+        <UrgK>3.7558231120488</UrgK>
+        <UrgB>632.750798915863</UrgB>
+      </endpoint>
+      <rightstate>False</rightstate>
+      <leftstate>False</leftstate>
+      <num>0</num>
+    </l5>
+    <l6>
+      <startpoint>
+        <x>-1.3610445086985</x>
+        <y>4.96855106681086</y>
+        <w>-0.0158881955857595</w>
+        <type>0</type>
+        <direc>False</direc>
+        <Can_Adj>1</Can_Adj>
+        <UrgK>3.7558231120488</UrgK>
+        <UrgB>632.750798915863</UrgB>
+      </startpoint>
+      <endpoint>
+        <x>-1.3711251913769</x>
+        <y>4.47982536874709</y>
+        <w>-0.0211296621707523</w>
+        <type>0</type>
+        <direc>True</direc>
+        <Can_Adj>1</Can_Adj>
+        <UrgK>0.756269247520503</UrgK>
+        <UrgB>1116.75812205467</UrgB>
+      </endpoint>
+      <rightstate>False</rightstate>
+      <leftstate>False</leftstate>
+      <num>0</num>
+    </l6>
+    <l7>
+      <startpoint>
+        <x>-1.3711251913769</x>
+        <y>4.47982536874709</y>
+        <w>-0.0211296621707523</w>
+        <type>0</type>
+        <direc>True</direc>
+        <Can_Adj>1</Can_Adj>
+        <UrgK>0.756269247520503</UrgK>
+        <UrgB>1116.75812205467</UrgB>
+      </startpoint>
+      <endpoint>
+        <x>-1.45938118546021</x>
+        <y>0.843312834742712</y>
+        <w>-0.0239141912940297</w>
+        <type>0</type>
+        <direc>True</direc>
+        <Can_Adj>0</Can_Adj>
+        <UrgK>0</UrgK>
+        <UrgB>0</UrgB>
+      </endpoint>
+      <rightstate>False</rightstate>
+      <leftstate>False</leftstate>
+      <num>2</num>
+    </l7>
+    <l8>
+      <startpoint>
+        <x>-1.45938118546021</x>
+        <y>0.843312834742712</y>
+        <w>-0.0239141912940297</w>
+        <type>0</type>
+        <direc>True</direc>
+        <Can_Adj>0</Can_Adj>
+        <UrgK>0</UrgK>
+        <UrgB>0</UrgB>
+      </startpoint>
+      <endpoint>
+        <x>-1.51288230712049</x>
+        <y>-0.999770203484421</y>
+        <w>-0.0266987204173072</w>
+        <type>0</type>
+        <direc>False</direc>
+        <Can_Adj>0</Can_Adj>
+        <UrgK>0</UrgK>
+        <UrgB>0</UrgB>
+      </endpoint>
+      <rightstate>False</rightstate>
+      <leftstate>False</leftstate>
+      <num>0</num>
+    </l8>
+    <l9>
+      <startpoint>
+        <x>-1.51288230712049</x>
+        <y>-0.999770203484421</y>
+        <w>-0.0266987204173072</w>
         <type>0</type>
         <direc>False</direc>
         <Can_Adj>0</Can_Adj>
@@ -140,18 +325,43 @@
         <UrgB>0</UrgB>
       </startpoint>
       <endpoint>
-        <x>1.56960797700099</x>
-        <y>0.195125331162071</y>
-        <w>0.0794409779287935</w>
+        <x>-0.190557573908805</x>
+        <y>-1.02934286447356</y>
+        <w>-0.0222762329862196</w>
         <type>0</type>
         <direc>False</direc>
-        <Can_Adj>1</Can_Adj>
-        <UrgK>15.5442283902172</UrgK>
-        <UrgB>376.602769005104</UrgB>
+        <Can_Adj>0</Can_Adj>
+        <UrgK>0</UrgK>
+        <UrgB>0</UrgB>
       </endpoint>
       <rightstate>False</rightstate>
       <leftstate>False</leftstate>
       <num>0</num>
-    </l4>
+    </l9>
+    <l10>
+      <startpoint>
+        <x>-0.190557573908805</x>
+        <y>-1.02934286447356</y>
+        <w>-0.0222762329862196</w>
+        <type>0</type>
+        <direc>False</direc>
+        <Can_Adj>0</Can_Adj>
+        <UrgK>0</UrgK>
+        <UrgB>0</UrgB>
+      </startpoint>
+      <endpoint>
+        <x>-0.167737849929492</x>
+        <y>0.0236989652868505</y>
+        <w>-0.0234228038016867</w>
+        <type>0</type>
+        <direc>False</direc>
+        <Can_Adj>1</Can_Adj>
+        <UrgK>6.83887203508718</UrgK>
+        <UrgB>456.356782188326</UrgB>
+      </endpoint>
+      <rightstate>False</rightstate>
+      <leftstate>False</leftstate>
+      <num>0</num>
+    </l10>
   </line>
 </Information>

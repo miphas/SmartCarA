@@ -110,6 +110,7 @@ namespace URG_data_pro_1
                     {
                         port.Open();
                         AGVproject.Class.TH_RefreshUrgData.urgport = port;
+                        Form1.urg_port.port = port;
                     }
                     catch (Exception)
                     {
@@ -164,6 +165,7 @@ namespace URG_data_pro_1
                 Thread.Sleep(20);
                 clearData();
                 string receiveData = port.ReadLine();
+
                 if (!SCIP_Reader.MD(receiveData, ref timeStamp, ref distancesInit))
                 {
 
