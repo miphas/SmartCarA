@@ -20,8 +20,12 @@ namespace Smart_Car
         public double x;
         public double y;
         public double w;
-        public int type;
-        public bool direc;
+        public int type;   //关键点序号
+        public bool direc;  //关键点类型（普通/激光雷达）
+
+        public double Can_Adj;
+        public double UrgK;  //拟合出小车前方直线的斜率（单位：度）
+        public double UrgB;  //拟合出小车前方直线的截距（单位：mm）
     }
 
     /// <summary>
@@ -32,7 +36,7 @@ namespace Smart_Car
         public Point endpoint;
         public bool rightstate;
         public bool leftstate;
-        public int num;
+        public int num;    //路径编号（主要针对通道内路径）
     }
 
     /// <summary>
@@ -113,18 +117,28 @@ namespace Smart_Car
                 XmlElement xe_w = xmldoc.CreateElement("w");
                 XmlElement xe_type = xmldoc.CreateElement("type");
                 XmlElement xe_direc = xmldoc.CreateElement("direc");
+                XmlElement xe_Can_Adj = xmldoc.CreateElement("Can_Adj"); 
+                XmlElement xe_UrgK = xmldoc.CreateElement("UrgK");  
+                XmlElement xe_UrgB = xmldoc.CreateElement("UrgB");
 
                 xe_x.InnerText = Convert.ToString(map.listPoint[i].x);
                 xe_y.InnerText = Convert.ToString(map.listPoint[i].y);
                 xe_w.InnerText = Convert.ToString(map.listPoint[i].w);
                 xe_type.InnerText = Convert.ToString(map.listPoint[i].type);
                 xe_direc.InnerText = Convert.ToString(map.listPoint[i].direc);
+                xe_Can_Adj.InnerText = Convert.ToString(map.listPoint[i].Can_Adj);
+                xe_UrgK.InnerText = Convert.ToString(map.listPoint[i].UrgK);
+                xe_UrgB.InnerText = Convert.ToString(map.listPoint[i].UrgB);
 
                 xe_roadpoint.AppendChild(xe_x);
                 xe_roadpoint.AppendChild(xe_y);
                 xe_roadpoint.AppendChild(xe_w);
                 xe_roadpoint.AppendChild(xe_type);
                 xe_roadpoint.AppendChild(xe_direc);
+                xe_roadpoint.AppendChild(xe_Can_Adj);
+                xe_roadpoint.AppendChild(xe_UrgK);
+                xe_roadpoint.AppendChild(xe_UrgB);
+                
 
                 xe_point.AppendChild(xe_roadpoint);
 
@@ -150,23 +164,35 @@ namespace Smart_Car
                 XmlElement xe_w_startpoint = xmldoc.CreateElement("w");
                 XmlElement xe_type_startpoint = xmldoc.CreateElement("type");
                 XmlElement xe_direc_startpoint = xmldoc.CreateElement("direc");
+                XmlElement xe_Can_Adj_startpoint = xmldoc.CreateElement("Can_Adj");
+                XmlElement xe_UrgK_startpoint = xmldoc.CreateElement("UrgK");
+                XmlElement xe_UrgB_startpoint = xmldoc.CreateElement("UrgB");
                 XmlElement xe_x_endpoint = xmldoc.CreateElement("x");
                 XmlElement xe_y_endpoint = xmldoc.CreateElement("y");
                 XmlElement xe_w_endpoint = xmldoc.CreateElement("w");
                 XmlElement xe_type_endpoint = xmldoc.CreateElement("type");
                 XmlElement xe_direc_endpoint = xmldoc.CreateElement("direc");
+                XmlElement xe_Can_Adj_endpoint = xmldoc.CreateElement("Can_Adj");
+                XmlElement xe_UrgK_endpoint = xmldoc.CreateElement("UrgK");
+                XmlElement xe_UrgB_endpoint = xmldoc.CreateElement("UrgB");
 
                 xe_x_startpoint.InnerText = Convert.ToString(map.listLine[i].startpoint.x);
                 xe_y_startpoint.InnerText = Convert.ToString(map.listLine[i].startpoint.y);
                 xe_w_startpoint.InnerText = Convert.ToString(map.listLine[i].startpoint.w);
                 xe_type_startpoint.InnerText = Convert.ToString(map.listLine[i].startpoint.type);
                 xe_direc_startpoint.InnerText = Convert.ToString(map.listLine[i].startpoint.direc);
+                xe_Can_Adj_startpoint.InnerText = Convert.ToString(map.listLine[i].startpoint.Can_Adj);
+                xe_UrgK_startpoint.InnerText = Convert.ToString(map.listLine[i].startpoint.UrgK);
+                xe_UrgB_startpoint.InnerText = Convert.ToString(map.listLine[i].startpoint.UrgB);
 
                 xe_startpoint.AppendChild(xe_x_startpoint);
                 xe_startpoint.AppendChild(xe_y_startpoint);
                 xe_startpoint.AppendChild(xe_w_startpoint);
                 xe_startpoint.AppendChild(xe_type_startpoint);
                 xe_startpoint.AppendChild(xe_direc_startpoint);
+                xe_startpoint.AppendChild(xe_Can_Adj_startpoint);
+                xe_startpoint.AppendChild(xe_UrgK_startpoint);
+                xe_startpoint.AppendChild(xe_UrgB_startpoint);
 
                 xe_l.AppendChild(xe_startpoint);
 
@@ -175,12 +201,18 @@ namespace Smart_Car
                 xe_w_endpoint.InnerText = Convert.ToString(map.listLine[i].endpoint.w);
                 xe_type_endpoint.InnerText = Convert.ToString(map.listLine[i].endpoint.type);
                 xe_direc_endpoint.InnerText = Convert.ToString(map.listLine[i].endpoint.direc);
+                xe_Can_Adj_endpoint.InnerText = Convert.ToString(map.listLine[i].endpoint.Can_Adj);
+                xe_UrgK_endpoint.InnerText = Convert.ToString(map.listLine[i].endpoint.UrgK);
+                xe_UrgB_endpoint.InnerText = Convert.ToString(map.listLine[i].endpoint.UrgB);
 
                 xe_endpoint.AppendChild(xe_x_endpoint);
                 xe_endpoint.AppendChild(xe_y_endpoint);
                 xe_endpoint.AppendChild(xe_w_endpoint);
                 xe_endpoint.AppendChild(xe_type_endpoint);
                 xe_endpoint.AppendChild(xe_direc_endpoint);
+                xe_endpoint.AppendChild(xe_Can_Adj_endpoint);
+                xe_endpoint.AppendChild(xe_UrgK_endpoint);
+                xe_endpoint.AppendChild(xe_UrgB_endpoint);
 
                 xe_l.AppendChild(xe_endpoint);
 
@@ -222,18 +254,27 @@ namespace Smart_Car
                 XmlElement xe_w_centerpoint = xmldoc.CreateElement("w");
                 XmlElement xe_type_centerpoint = xmldoc.CreateElement("type");
                 XmlElement xe_direc_centerpoint = xmldoc.CreateElement("direc");
+                XmlElement xe_Can_Adj_centerpoint = xmldoc.CreateElement("Can_Adj");
+                XmlElement xe_UrgK_centerpoint = xmldoc.CreateElement("UrgK");
+                XmlElement xe_UrgB_centerpoint = xmldoc.CreateElement("UrgB");
 
                 xe_x_centerpoint.InnerText = Convert.ToString(map.listFixedRect[i].CenterPoint.x);
                 xe_y_centerpoint.InnerText = Convert.ToString(map.listFixedRect[i].CenterPoint.y);
                 xe_w_centerpoint.InnerText = Convert.ToString(map.listFixedRect[i].CenterPoint.w);
                 xe_type_centerpoint.InnerText = Convert.ToString(map.listFixedRect[i].CenterPoint.type);
                 xe_direc_centerpoint.InnerText = Convert.ToString(map.listFixedRect[i].CenterPoint.direc);
+                xe_Can_Adj_centerpoint.InnerText = Convert.ToString(map.listFixedRect[i].CenterPoint.Can_Adj);
+                xe_UrgK_centerpoint.InnerText = Convert.ToString(map.listFixedRect[i].CenterPoint.UrgK);
+                xe_UrgB_centerpoint.InnerText = Convert.ToString(map.listFixedRect[i].CenterPoint.UrgB);
 
                 xe_centerpoint.AppendChild(xe_x_centerpoint);
                 xe_centerpoint.AppendChild(xe_y_centerpoint);
                 xe_centerpoint.AppendChild(xe_w_centerpoint);
                 xe_centerpoint.AppendChild(xe_type_centerpoint);
                 xe_centerpoint.AppendChild(xe_direc_centerpoint);
+                xe_centerpoint.AppendChild(xe_Can_Adj_centerpoint);
+                xe_centerpoint.AppendChild(xe_UrgK_centerpoint);
+                xe_centerpoint.AppendChild(xe_UrgB_centerpoint);
 
                 xe_fr.AppendChild(xe_centerpoint);
 
@@ -280,6 +321,9 @@ namespace Smart_Car
                         p.w = Convert.ToDouble(xnl_3.Item(2).InnerText);
                         p.type = Convert.ToInt32(xnl_3.Item(3).InnerText);
                         p.direc = Convert.ToBoolean(xnl_3.Item(4).InnerText);
+                        p.Can_Adj = Convert.ToDouble(xnl_3.Item(5).InnerText);
+                        p.UrgK = Convert.ToDouble(xnl_3.Item(6).InnerText);
+                        p.UrgB = Convert.ToDouble(xnl_3.Item(7).InnerText);
                         listPoint.Add(p);
                     }
                 } else if (xe_1.Name == "line")//检测到line节点。
@@ -299,6 +343,9 @@ namespace Smart_Car
                                 l.startpoint.w = Convert.ToDouble(xnl_4.Item(2).InnerText);
                                 l.startpoint.type = Convert.ToInt32(xnl_4.Item(3).InnerText);
                                 l.startpoint.direc = Convert.ToBoolean(xnl_4.Item(4).InnerText);
+                                l.startpoint.Can_Adj = Convert.ToDouble(xnl_4.Item(5).InnerText);
+                                l.startpoint.UrgK = Convert.ToDouble(xnl_4.Item(6).InnerText);
+                                l.startpoint.UrgB = Convert.ToDouble(xnl_4.Item(7).InnerText);
                             } else if (xe3.Name == "endpoint")//检测到endpoint节点。
                             {
                                 XmlNodeList xnl_4 = xn1_3.ChildNodes;
@@ -308,6 +355,9 @@ namespace Smart_Car
                                 l.endpoint.w = Convert.ToDouble(xnl_4.Item(2).InnerText);
                                 l.endpoint.type = Convert.ToInt32(xnl_4.Item(3).InnerText);
                                 l.endpoint.direc = Convert.ToBoolean(xnl_4.Item(4).InnerText);
+                                l.endpoint.Can_Adj = Convert.ToDouble(xnl_4.Item(5).InnerText);
+                                l.endpoint.UrgK = Convert.ToDouble(xnl_4.Item(6).InnerText);
+                                l.endpoint.UrgB = Convert.ToDouble(xnl_4.Item(7).InnerText);
                             } else if (xe3.Name == "rightstate")//检测到rightstate节点。
                             {
                                 /*将rightstate中的值读入到Line结构体变量l的rightstate中*/
@@ -348,6 +398,9 @@ namespace Smart_Car
                                 fr.CenterPoint.w = Convert.ToDouble(xnl_4.Item(2).InnerText);
                                 fr.CenterPoint.type = Convert.ToInt32(xnl_4.Item(3).InnerText);
                                 fr.CenterPoint.direc = Convert.ToBoolean(xnl_4.Item(4).InnerText);
+                                fr.CenterPoint.Can_Adj = Convert.ToDouble(xnl_4.Item(5).InnerText);
+                                fr.CenterPoint.UrgK = Convert.ToDouble(xnl_4.Item(6).InnerText);
+                                fr.CenterPoint.UrgB = Convert.ToDouble(xnl_4.Item(7).InnerText);
                             }
                         }
                         listFixedRect.Add(fr);//将FixedRect结构体变量fr添加入list集合中。

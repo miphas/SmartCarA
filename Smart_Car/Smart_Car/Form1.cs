@@ -11,25 +11,36 @@ using System.Drawing.Imaging;
 using System.Globalization;
 using System.Threading;
 using System.Drawing.Drawing2D;
+using URG_data_pro_1;
+using AGVproject.Class;
 
 namespace Smart_Car
 {
     public partial class Form1 : Form
     {
+        static TH_SendCommand th_sendCommand = new TH_SendCommand();
         static DrPort dr_port = new DrPort();
         static ConPort con_port = new ConPort();
-        static UrgPort urg_port = new UrgPort();
+        public static UrgPort urg_port = new UrgPort();
+        static Urg_pro_1.UrgPort urg_port_1 = new Urg_pro_1.UrgPort();   //用来校准用激光雷达数据
         static XML xml_con = new XML();
         static Route route = new Route();
-        double size_rate;//图像放缩比
+        double size_rate = 1;//图像放缩比
         static double p_left = 0, p_right = 0, p_top = 0, p_buttom = 0;//MAP四个角落值
         Point c_point = new Point();//当前点坐标
+       
         static OperatingXML operating_xml = new OperatingXML();
         // Network to add
         static NetSender net_sender = new NetSender();
+        
         public Form1()
         {
             InitializeComponent();
+
+            //AGVproject.Class.TH_RefreshUrgData.Open();
+            //CorrectPosition corrp = new CorrectPosition();
+            //corrp.GetUrg_K_B();
+
             // add netSender
             //net_sender.init(dr_port);
             //Thread myThread = new Thread(net_sender.startSender);
@@ -40,7 +51,7 @@ namespace Smart_Car
             this.alarm_list.Columns.Add("时间", 150, HorizontalAlignment.Left);
             this.alarm_list.Columns.Add("事件内容", 320, HorizontalAlignment.Left);
 
-            for (int i = 1; i <= 10; i++)//
+            for (int i = 1; i <= 10; i++)   //初始化窗体时自动填充 “Route + i ”
             {
                 string str = "../../Map/Route" + i.ToString() + ".xml";
                 if(File.Exists(str))
@@ -48,16 +59,16 @@ namespace Smart_Car
                     this.map_select.Items.Add(new ComboBoxItem<int, string>(1, "Route" + i.ToString()));
                 }
             }
-            for (int i = 1; i <= 10; i++)//
-            {
-                string str = "../../Map/Route" + i.ToString() + ".xml";
-                if (File.Exists(str))
-                {
-                    str = "Route" + i.ToString();
-                    this.map_select.Text = str;
-                    break;
-                }
-            }
+            //for (int i = 1; i <= 10; i++)  //初始化窗体时自动显示填充的 “Route + i ”
+            //{
+            //    string str = "../../Map/Route" + i.ToString() + ".xml";
+            //    if (File.Exists(str))
+            //    {
+            //        str = "Route" + i.ToString();
+            //        this.map_select.Text = str;
+            //        break;
+            //    }
+            //}
         }
        
         private void Serial_Config(object sender, MouseEventArgs e)//串口配置函数;打开串口配置页面
@@ -101,12 +112,10 @@ namespace Smart_Car
                 switch (i)
                 {
                     case 0:
-                        if (urg_port.OpenPort(portName, portBaudrate) == false)
+                        if (urg_port_1.OpenPort(portName, portBaudrate) == false)
                         {
-                            ListViewItem lvi = new ListViewItem();
-                            lvi.Text = DateTime.Now.ToString(); ;
-                            lvi.SubItems.Add("激光雷达串口未打开");
-                            this.alarm_list.Items.Add(lvi);
+                            string state_info = "激光雷达串口未打开";
+                            Show_State_info(state_info);
                             system_light.FillColor = System.Drawing.Color.Red;
                             system_label.Text = "系统状态：串口异常";
                             flag = 1;
@@ -115,10 +124,8 @@ namespace Smart_Car
                     case 1:
                         if (con_port.OpenPort(portName, portBaudrate) == false)
                         {
-                            ListViewItem lvi = new ListViewItem();
-                            lvi.Text = DateTime.Now.ToString(); ;
-                            lvi.SubItems.Add("控制串口未打开");
-                            this.alarm_list.Items.Add(lvi);
+                            string state_info = "控制串口未打开";
+                            Show_State_info(state_info);
                             system_light.FillColor = System.Drawing.Color.Red;
                             system_label.Text = "系统状态：串口异常";
                             flag = 1;
@@ -127,10 +134,8 @@ namespace Smart_Car
                     case 2:
                         if (dr_port.OpenPort(portName, portBaudrate) == false)
                         {
-                            ListViewItem lvi = new ListViewItem();
-                            lvi.Text = DateTime.Now.ToString(); ;
-                            lvi.SubItems.Add("编码器串口未打开");
-                            this.alarm_list.Items.Add(lvi);
+                            string state_info = "编码器串口未打开";
+                            Show_State_info(state_info);
                             system_light.FillColor = System.Drawing.Color.Red;
                             system_label.Text = "系统状态：串口异常";
                             flag = 1;
@@ -151,6 +156,19 @@ namespace Smart_Car
             }
             system_light.FillColor = System.Drawing.Color.Gray;
             system_label.Text = "系统状态：运行完成";
+        }
+        private void Show_State_info(string str)    //显示状态信息
+        {
+            ListViewItem lvi = new ListViewItem();
+            lvi.Text = DateTime.Now.ToString(); ;
+            lvi.SubItems.Add(str);
+            this.alarm_list.Items.Add(lvi);
+        }
+        private void Close_Port()
+        {
+            urg_port_1.ClosePort();
+            dr_port.ClosePort();
+            con_port.ClosePort();
         }
         
         private void Map_Change(object sender, EventArgs e)//重新选择地图后重绘界面
@@ -197,6 +215,7 @@ namespace Smart_Car
                 size_rate = (p_buttom - p_top) / draw_map.Size.Height * 100 / (size_bar.Value * 8);
             else
                 size_rate = (p_right - p_left) / draw_map.Size.Width * 100 / (size_bar.Value * 8);
+            //size_rate = 1;
             int size_rate_r = (int)(1 / size_rate);
             for (int i = 0; i < draw_map.Width; i++)
             {
@@ -262,10 +281,8 @@ namespace Smart_Car
             string route_path = "../../Map/" + map_select.Text.ToString() + ".xml";
             if (File.Exists(route_path))
             {
-                //MessageBox.Show(map_select.Text.ToString());
                 route.map = operating_xml.readXML(route_path);
                 Redraw_Panel(route.map);
-                //System.Threading.Thread.Sleep(3000);
             }
         }
         private void goAlongMap()//小车行进执行函数
@@ -286,7 +303,10 @@ namespace Smart_Car
 
             /////摄像头////
             //new CameraControl().cameraLeading(dr_port, con_port);
-            dr_port.clearData();
+            Show_State_info("开始初始位姿校准...");
+            urg_port_1.Init_Pos_Adjust(con_port);   //初始位姿校准
+            Show_State_info("初始位姿校准完毕！");
+            dr_port.clearData();   //初始位姿校准完毕清空编码器数据（置0）
 
             for (int i = 0; i < map.Count; ++i)
             {
@@ -303,7 +323,8 @@ namespace Smart_Car
                     double epoch = (DateTime.Now.ToUniversalTime().Ticks - 621355968000000000) / 10000000-todayTime;
                     str += epoch.ToString();
                 }
-
+                double W = map[i].endpoint.w + Math.PI / 2.0;
+                double length = Math.Sqrt(Math.Pow(map[i].startpoint.x - map[i].endpoint.x, 2) + Math.Pow(map[i].startpoint.y - map[i].endpoint.y, 2));
                 c_point = map[i].startpoint;
                 Redraw_Panel(route.map);
                 if (!map[i].startpoint.direc || !map[i].endpoint.direc)
@@ -320,11 +341,26 @@ namespace Smart_Car
                     goWithPP2(map[i].startpoint, map[i].endpoint, con_port, dr_port, urg_port);
                     //goWithPP(map[i].startpoint, map[i].endpoint, con_port, dr_port, urg_port);
                 }
+                
+                else if (Math.Sqrt((Math.Pow(map[i].startpoint.x + length * Math.Cos(W) - map[i].endpoint.x, 2))
+                        + Math.Pow(map[i].startpoint.y + length * Math.Sin(W - Math.PI) - map[i].endpoint.y, 2)) < length)
+                
+                {
+                 goWithSonic(map[i].startpoint, map[i].endpoint, con_port, dr_port, urg_port);
+                }
                 else
                 {
                     // setSpeed
-                    int setSpeed = 50;
+                    int setSpeed = 100;
                     goWithRadar(map[i].startpoint, map[i].endpoint, con_port, dr_port, urg_port, setSpeed);
+                }
+                ////加入行进位姿校准/////
+                if(map[i].endpoint.Can_Adj==1)
+                {
+                    new CorrectPosition().Start(map[i].endpoint);       //校准函数
+                    DrPort.distance.Sx = map[i].endpoint.x;
+                    DrPort.distance.Sy = map[i].endpoint.y;
+                    DrPort.distance.Sw = map[i].endpoint.w;
                 }
                 if (map[i].num != 0)//结束时间
                 {
@@ -513,7 +549,7 @@ namespace Smart_Car
         {
             // 设置行进方向最小速度和最大速速度
             int minGo = 10, minShift = 10, minRot = 2;
-            int maxGo = 60, maxShift = 40, maxRot = 20;
+            int maxGo = 60, maxShift = 40, maxRot = 10;
             // 设置角度、距离误差范围
             double angRound = 0.008;
             double disRound = 0.0075;
@@ -522,6 +558,7 @@ namespace Smart_Car
             double disP = 650;   // 60/0.0075 = 13333
             // 当前位置点信息
             Point nowPos = myDrPort.getPoint();
+            Redraw_Curr_P(nowPos);
 
             //
             // 行进控制部分开始
@@ -534,10 +571,12 @@ namespace Smart_Car
                     int curRot = (int)(angP * (des.w - nowPos.w));
                     // 限制速度在合理范围
                     curRot = Navigation.getLimit(curRot, maxRot, minRot, true, true);
+                    Console.WriteLine("rot " + curRot);
                     // 执行转弯
                     myConPort.controlDirectAGV(0, 0, curRot);
                     Thread.Sleep(100);
                     nowPos = myDrPort.getPoint();
+                    Redraw_Curr_P(nowPos);
                 }
             }
             //
@@ -546,9 +585,11 @@ namespace Smart_Car
             if (Math.Abs(res.y - des.y) < Math.Abs(res.x - des.x)) {
                 while (Math.Abs(des.x - nowPos.x) > disRound) {
                     Navigation.getDefaultSpeed(res, des, nowPos, nowPos.w + Math.PI / 2, ref goSpeed, ref shSpeed);
+                    Console.WriteLine(goSpeed + " " + shSpeed);
                     myConPort.controlDirectAGV(goSpeed, shSpeed, 0);
                     Thread.Sleep(100);
                     nowPos = myDrPort.getPoint();
+                    Redraw_Curr_P(nowPos);
                 }
             }
             else {
@@ -557,6 +598,7 @@ namespace Smart_Car
                     myConPort.controlDirectAGV(goSpeed, shSpeed, 0);
                     Thread.Sleep(100);
                     nowPos = myDrPort.getPoint();
+                    Redraw_Curr_P(nowPos);
                 }
             }
 
@@ -662,6 +704,93 @@ namespace Smart_Car
              * */
 
         }
+        private void goWithSonic(Point res, Point des, ConPort myConPort, DrPort myDrPort, UrgPort myUrgPort)
+        {
+            TH_SendCommand.Open();
+            TH_SendCommand.MeasureUltraSonic_0x86();
+           
+            int goSpeed = -100;
+            double toMove = 0;
+            bool flagX = false;
+            bool flagY = false;
+            int shiftSpeed=0;
+            int rotatSpeed=0;
+            Point start = myDrPort.getPoint();
+            Point now = myDrPort.getPoint();
+            Redraw_Curr_P(now);
+            if (Math.Abs(des.x - res.x) < Math.Abs(des.y - res.y))
+            {
+                toMove = des.y - res.y;
+                flagY = true;
+            }
+            else
+            {
+                toMove = des.x - res.x;
+                flagX = true;
+            }
+            while ((flagX && Math.Abs(toMove - (now.x - start.x)) > 0.1) ||
+                   (flagY && Math.Abs(toMove - (now.y - start.y)) > 0.1))
+            {
+               
+                GetBackInfo(ref shiftSpeed, ref rotatSpeed);
+                if (myUrgPort.CanGo())
+                {
+                    TH_SendCommand.AGV_MoveControl_0x70(goSpeed, shiftSpeed, rotatSpeed);
+                }
+                System.Threading.Thread.Sleep(100);
+                now = myDrPort.getPoint();
+                Redraw_Curr_P(now);
+               
+            }
+
+            TH_SendCommand.Close();
+            TH_SendCommand.TH_data.TH_cmd_abort = true;
+        }
+        
+        private void GetBackInfo(ref int shiftSpeed,ref int rotatSpeed)
+        {
+            int right = TH_SendCommand.TH_data.Tail_R_Y;
+            int left=TH_SendCommand.TH_data.Tail_L_Y;
+            //if (right < 80) right = 230;
+            //if (left < 80) left = 230;
+            double angle;
+            double dis;
+            double length = right + left + 400;//左右距离+车宽
+            if (right > 350 && left > 350)
+            {
+                rotatSpeed = 0;
+                shiftSpeed = 0;
+            }
+            else if (right > 350)
+            {
+                shiftSpeed = (int)(0.1 * (200 - left));
+                rotatSpeed = (int)(3 * (200-left));
+            }
+            else if (left > 350)
+            {
+                shiftSpeed = (int)(0.1 * (right-200));
+                rotatSpeed = (int)(3 * (right - 200));
+                
+            }
+            else
+            {
+                if (length < 800)
+                    angle = 0;
+                else angle = Math.Acos(800 / length);
+                if (right >= left)
+                {
+                    rotatSpeed = (int)(5 * (angle * 180 / 3.14159));
+
+                }
+                else if (right < left)
+                {
+                    rotatSpeed = -(int)(5 * (angle * 180 / 3.14159));
+                }
+                if (length > 800)
+                    shiftSpeed = (int)(0.1 * (right - left));
+            }
+        }
+
         private void goWithRadar(Point res, Point des, ConPort myConPort, DrPort myDrPort, UrgPort myUrgPort, int speed)//激光雷达行走
         {
             double toMove = 0;
@@ -720,6 +849,11 @@ namespace Smart_Car
                     this.map_select.Items.Add(new ComboBoxItem<int, string>(1, "Route" + i.ToString()));
                 }
             }
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

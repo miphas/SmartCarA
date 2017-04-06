@@ -25,7 +25,7 @@ namespace Smart_Car {
         public static int maxGo = 60;
         public static int minGo = 10;
         // 设置最大、最小平移速度（速度配置在相应文件）
-        public static int maxSh = 40;
+        public static int maxSh = 100;
         public static int minSh = 10;
         // 设置比例 (60/0.0075 = 13333)
         public static double disP = 650;
@@ -108,9 +108,11 @@ namespace Smart_Car {
                 shSpeed = -(int)((end.x - cur.x) * disP);
                 goSpeed = (int)((desY - cur.y) * disP);
                 // 调整进行限制
-                goSpeed = getLimit(goSpeed, maxGo, minGo, true, true);
-                shSpeed = getLimit(shSpeed, maxSh, minSh, false, true);
-                Console.WriteLine(end.x + " " + cur.x);
+                Console.WriteLine(shSpeed);
+                goSpeed = getLimit(goSpeed, maxGo, minGo, false, true);
+                shSpeed = getLimit(shSpeed, maxSh, minSh, true, true);
+                //Console.WriteLine(end.x + " " + cur.x);
+                Console.WriteLine(shSpeed);
             }
             // Y方向是主要偏差 
             else {
@@ -118,8 +120,8 @@ namespace Smart_Car {
                 goSpeed = (int)((end.y - cur.y) * disP);
                 shSpeed = -(int)((desX - cur.x) * disP);
                 // 速度调整进行限制
-                shSpeed = getLimit(shSpeed, maxSh, minSh, true, true);
-                goSpeed = getLimit(goSpeed, maxGo, minGo, false, true);
+                shSpeed = getLimit(shSpeed, maxSh, minSh, false, true);
+                goSpeed = getLimit(goSpeed, maxGo, minGo, true, true);
             }
             Console.WriteLine("Head " + goSpeed);
         }
@@ -146,8 +148,8 @@ namespace Smart_Car {
                 goSpeed = (int)((end.x - cur.x) * disP);
                 shSpeed = (int)((desY - cur.y) * disP);
                 // 调整进行限制
-                goSpeed = getLimit(goSpeed, maxGo, minGo, false, true);
-                shSpeed = getLimit(shSpeed, maxSh, minSh, true, true);
+                goSpeed = getLimit(goSpeed, maxGo, minGo, true, true);
+                shSpeed = getLimit(shSpeed, maxSh, minSh, false, true);
             }
             // Y方向是主要偏差 
             else {
@@ -155,8 +157,8 @@ namespace Smart_Car {
                 shSpeed = (int)((end.y - cur.y) * disP);
                 goSpeed = (int)((desX - cur.x) * disP);
                 // 速度调整进行限制
-                shSpeed = getLimit(shSpeed, maxSh, minSh, false, true);
-                goSpeed = getLimit(goSpeed, maxGo, minGo, true, true);
+                shSpeed = getLimit(shSpeed, maxSh, minSh, true, true);
+                goSpeed = getLimit(goSpeed, maxGo, minGo, false, true);
             }
             Console.WriteLine("R " + goSpeed);
         }
