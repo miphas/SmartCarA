@@ -763,12 +763,12 @@ namespace Smart_Car
             }
             else if (right > 350)
             {
-                shiftSpeed = (int)(0.1 * (200 - left));
+                shiftSpeed = (int)(0.2 * (200 - left));
                 rotatSpeed = (int)(3 * (200-left));
             }
             else if (left > 350)
             {
-                shiftSpeed = (int)(0.1 * (right-200));
+                shiftSpeed = (int)(0.2 * (right-200));
                 rotatSpeed = (int)(3 * (right - 200));
                 
             }
@@ -787,7 +787,7 @@ namespace Smart_Car
                     rotatSpeed = -(int)(5 * (angle * 180 / 3.14159));
                 }
                 if (length > 800)
-                    shiftSpeed = (int)(0.1 * (right - left));
+                    shiftSpeed = (int)(0.2 * (right - left));
             }
         }
 

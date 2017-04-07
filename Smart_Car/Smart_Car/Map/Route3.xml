@@ -8,28 +8,28 @@
       <type>0</type>
       <direc>False</direc>
       <Can_Adj>1</Can_Adj>
-      <UrgK>10.3418115883968</UrgK>
-      <UrgB>510.195710725308</UrgB>
+      <UrgK>26.7943422040362</UrgK>
+      <UrgB>504.016972675815</UrgB>
     </roadpoint1>
     <roadpoint2>
-      <x>0.704459164871341</x>
-      <y>0.00617324625834583</y>
-      <w>0.0181813372166938</w>
+      <x>-0.00450540612455465</x>
+      <y>-0.711052515926086</y>
+      <w>0.0168709705704456</w>
       <type>0</type>
       <direc>False</direc>
-      <Can_Adj>1</Can_Adj>
-      <UrgK>3.73406310346877</UrgK>
-      <UrgB>508.772673274279</UrgB>
+      <Can_Adj>0</Can_Adj>
+      <UrgK>0</UrgK>
+      <UrgB>0</UrgB>
     </roadpoint2>
     <roadpoint3>
-      <x>0.724848237316086</x>
-      <y>-0.542619211206726</y>
-      <w>-0.0271901079096502</w>
+      <x>-0.0192188522124716</x>
+      <y>0.0285560807701586</y>
+      <w>0.0152330122626354</w>
       <type>0</type>
       <direc>False</direc>
       <Can_Adj>1</Can_Adj>
-      <UrgK>14.2252423066068</UrgK>
-      <UrgB>1032.18413736232</UrgB>
+      <UrgK>0.1360089194182</UrgK>
+      <UrgB>474.770447441101</UrgB>
     </roadpoint3>
   </point>
   <line>
@@ -41,18 +41,18 @@
         <type>0</type>
         <direc>False</direc>
         <Can_Adj>1</Can_Adj>
-        <UrgK>10.3418115883968</UrgK>
-        <UrgB>510.195710725308</UrgB>
+        <UrgK>26.7943422040362</UrgK>
+        <UrgB>504.016972675815</UrgB>
       </startpoint>
       <endpoint>
-        <x>0.704459164871341</x>
-        <y>0.00617324625834583</y>
-        <w>0.0181813372166938</w>
+        <x>-0.00450540612455465</x>
+        <y>-0.711052515926086</y>
+        <w>0.0168709705704456</w>
         <type>0</type>
         <direc>False</direc>
-        <Can_Adj>1</Can_Adj>
-        <UrgK>3.73406310346877</UrgK>
-        <UrgB>508.772673274279</UrgB>
+        <Can_Adj>0</Can_Adj>
+        <UrgK>0</UrgK>
+        <UrgB>0</UrgB>
       </endpoint>
       <rightstate>False</rightstate>
       <leftstate>False</leftstate>
@@ -60,24 +60,24 @@
     </l1>
     <l2>
       <startpoint>
-        <x>0.704459164871341</x>
-        <y>0.00617324625834583</y>
-        <w>0.0181813372166938</w>
+        <x>-0.00450540612455465</x>
+        <y>-0.711052515926086</y>
+        <w>0.0168709705704456</w>
         <type>0</type>
         <direc>False</direc>
-        <Can_Adj>1</Can_Adj>
-        <UrgK>3.73406310346877</UrgK>
-        <UrgB>508.772673274279</UrgB>
+        <Can_Adj>0</Can_Adj>
+        <UrgK>0</UrgK>
+        <UrgB>0</UrgB>
       </startpoint>
       <endpoint>
-        <x>0.724848237316086</x>
-        <y>-0.542619211206726</y>
-        <w>-0.0271901079096502</w>
+        <x>-0.0192188522124716</x>
+        <y>0.0285560807701586</y>
+        <w>0.0152330122626354</w>
         <type>0</type>
         <direc>False</direc>
         <Can_Adj>1</Can_Adj>
-        <UrgK>14.2252423066068</UrgK>
-        <UrgB>1032.18413736232</UrgB>
+        <UrgK>0.1360089194182</UrgK>
+        <UrgB>474.770447441101</UrgB>
       </endpoint>
       <rightstate>False</rightstate>
       <leftstate>False</leftstate>

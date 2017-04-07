@@ -256,10 +256,10 @@ namespace Smart_Car
                     //if (portConfig.Sent0x84) { System.Threading.Thread.Sleep(5); controlport.Write(portConfig.DistanceCommand, 0, portConfig.DistanceCommand.Length); }
                     //if (portConfig.Sent0x70) { System.Threading.Thread.Sleep(20); controlport.Write(portConfig.ControlCommand, 0, portConfig.ControlCommand.Length); }
 
-                    if (portConfig.SonicCommand != null)
-                    {
-controlport.Write(portConfig.SonicCommand, 0, portConfig.SonicCommand.Length);System.Threading.Thread.Sleep(50);
-                    }
+//                    if (portConfig.SonicCommand != null)
+//                    {
+//controlport.Write(portConfig.SonicCommand, 0, portConfig.SonicCommand.Length);System.Threading.Thread.Sleep(50);
+//                    }
                     
                      controlport.Write(portConfig.ControlCommand, 0, portConfig.ControlCommand.Length);
        
@@ -270,7 +270,7 @@ controlport.Write(portConfig.SonicCommand, 0, portConfig.SonicCommand.Length);Sy
                 catch { portConfig.IsGettingCommand = false; continue; }
 
                 // 执行命令
-                System.Threading.Thread.Sleep(150);//TH_data.TimeForControl);
+                System.Threading.Thread.Sleep(100);//TH_data.TimeForControl);
             }
         }
         private static void portDataReceived(object sender, EventArgs e)
@@ -296,36 +296,36 @@ controlport.Write(portConfig.SonicCommand, 0, portConfig.SonicCommand.Length);Sy
             portConfig.IsReading = false;
 
             // 满足长度要求
-            if (portConfig.Receive.Count < 60) { return; }
-            
+            if (portConfig.Receive.Count <23) { return; }
+
             // 寻找 0xf1
             int indexBG = -1;
             for (int i = 0; i < receLength; i++)
             {
-                if (portConfig.Receive[i] != 0xf1) { continue; }
+                if (portConfig.Receive[i] != 0xf2) { continue; }
                 indexBG = i; break;
             }
 
             // 校验帧头
             if (indexBG == -1) { portConfig.Receive = new List<byte>(); return; }
             if (portConfig.Receive.Count < indexBG + portConfig.ReceiveLength_0x86) { portConfig.Receive = new List<byte>(); return; }
-            if (portConfig.Receive[indexBG + 1] != 0x86) { portConfig.Receive = new List<byte>(); return; }
+            if (portConfig.Receive[indexBG + 1] != 0x70) { portConfig.Receive = new List<byte>(); return; }
 
             // 校验帧尾
-            uint sumReceived = 0;
-            for (int i = 0; i < portConfig.ReceiveLength_0x86 - 2; i++) { sumReceived += portConfig.Receive[indexBG + i]; }
-            sumReceived = (sumReceived >> 16) + (sumReceived & 0x0000ffff);
+            //uint sumReceived = 0;
+            //for (int i = 0; i < portConfig.ReceiveLength_0x86 - 2; i++) { sumReceived += portConfig.Receive[indexBG + i]; }
+            //sumReceived = (sumReceived >> 16) + (sumReceived & 0x0000ffff);
 
-            byte checkH = (byte)(sumReceived >> 8);
-            byte checkL = (byte)(sumReceived & 0x00ff);
+            //byte checkH = (byte)(sumReceived >> 8);
+            //byte checkL = (byte)(sumReceived & 0x00ff);
 
-            if (portConfig.Receive[indexBG + portConfig.ReceiveLength_0x86 - 2] != checkH) { portConfig.Receive = new List<byte>(); return; }
-            if (portConfig.Receive[indexBG + portConfig.ReceiveLength_0x86 - 1] != checkL) { portConfig.Receive = new List<byte>(); return; }
+            //if (portConfig.Receive[indexBG + portConfig.ReceiveLength_0x86 - 2] != checkH) { portConfig.Receive = new List<byte>(); return; }
+            //if (portConfig.Receive[indexBG + portConfig.ReceiveLength_0x86 - 1] != checkL) { portConfig.Receive = new List<byte>(); return; }
 
-            // 填充数据
+            //填充数据
             TH_data.IsSetting = true;
             while (TH_data.IsGetting) ;
-
+             indexBG += 3;
             TH_data.Head_L_Y = (portConfig.Receive[indexBG + 2]) << 8 | portConfig.Receive[indexBG + 3];
             TH_data.Head_L_X = (portConfig.Receive[indexBG + 4]) << 8 | portConfig.Receive[indexBG + 5];
             TH_data.Head_R_X = (portConfig.Receive[indexBG + 6]) << 8 | portConfig.Receive[indexBG + 7];
